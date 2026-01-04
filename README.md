@@ -15,6 +15,8 @@ AI以前（2008-2013年）の生の書き味データを体系化し、記事執
 
 完成後は **nomuraya-operation** へ移行予定
 
+📈 [ダッシュボード](docs/dashboard.md) - 最新の統計情報と進捗
+
 ## 📦 構成
 
 ```
@@ -36,8 +38,9 @@ writing-corpus/
 
 - [x] Phase 0: リポジトリ作成・初期セットアップ
 - [ ] Phase 1: データ収集・整備
-  - [ ] FC2記事660件をdata/raw/にコピー
-  - [ ] metadata.json生成
+  - [x] FC2記事660件をdata/raw/にコピー
+  - [x] metadata.json生成（Phase 1.1完了）
+  - [ ] リライト判断基準策定（Phase 1.2）
 - [ ] Phase 2: 書き味分析
   - [ ] 論理展開パターン抽出
   - [ ] 感情表現辞書化
