@@ -45,7 +45,10 @@ writing-corpus/
     - ⏸️ 保留: 94件
     - 📦 アーカイブ: 470件
     - 🗑️ 削除候補: 57件
-- [ ] Phase 2: 書き味分析
+- [x] **Phase 2: データベース化（完了）**
+  - [x] SQLiteデータベース構築（5.49MB）
+  - [x] 全文検索（FTS5）実装
+  - [x] スマートサンプリング実装
   - [ ] 論理展開パターン抽出
   - [ ] 感情表現辞書化
   - [ ] 構造特徴分析
@@ -67,7 +70,8 @@ writing-corpus/
 ### 価値B: AI学習用コーパス
 - 場所: `writing-corpus/data/raw/fc2_extracted/`
 - 性質: **永久保存・変更禁止**（Read-only）
-- **進捗**: Phase 1完了、Phase 2準備中
+- **進捗**: Phase 2完了（SQLite化済み）
+- **データベース**: writing-corpus.db（5.49MB、FTS5全文検索対応）
 
 両者は `data/corpus/metadata.json` で状態管理され、同期スクリプトで連携。
 
