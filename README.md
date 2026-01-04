@@ -49,6 +49,8 @@ writing-corpus/
   - [x] SQLiteデータベース構築（5.49MB）
   - [x] 全文検索（FTS5）実装
   - [x] スマートサンプリング実装
+  - [x] 書き味パターン定義（patterns.json）
+  - [x] Preference Pairs形式データ整備
   - [ ] 論理展開パターン抽出
   - [ ] 感情表現辞書化
   - [ ] 構造特徴分析

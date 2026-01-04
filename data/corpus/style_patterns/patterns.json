@@ -1,0 +1,192 @@
+{
+  "version": "2026-01-05",
+  "description": "のむらやの書き味パターン定義。AI版との比較から抽出。",
+  "patterns": {
+    "structure": {
+      "no-number-heading": {
+        "description": "見出しに数字を入れない",
+        "bad": "### 1. 統合",
+        "good": "### 統合",
+        "reason": "構造を過度に強調しない"
+      },
+      "no-step-heading": {
+        "description": "手順をStep見出しで分けない",
+        "bad": "### Step 1: リモートリポジトリの移行",
+        "good": "コードブロックに統合してコメントで説明",
+        "reason": "シンプルさを優先"
+      },
+      "no-bold-label": {
+        "description": "強調記法のラベルを使わない",
+        "bad": "**こういうときに選ぶ:**",
+        "good": "文章で自然に流す",
+        "reason": "読み物としての流れを重視"
+      },
+      "code-block-unified": {
+        "description": "コードブロックは統合して一箇所に",
+        "bad": "各ステップごとにコードブロック分割",
+        "good": "一つのコードブロックにまとめてコメントで説明",
+        "reason": "コピペしやすさ"
+      },
+      "bullet-as-consequence": {
+        "description": "箇条書きは結果・帰結として使う",
+        "bad": "**選ぶ基準:** - 基準1 - 基準2",
+        "good": "〜したくなりますが、 - 問題1 - 問題2 になります。",
+        "reason": "箇条書きを文脈の中に埋め込む"
+      }
+    },
+    "tone": {
+      "self-experience": {
+        "description": "自分の経験として語る",
+        "bad": "選択肢は3つです",
+        "good": "私の場合、以下の方法で解決しました",
+        "reason": "断定を避けて体験談化"
+      },
+      "soft-tone": {
+        "description": "強制のニュアンスを弱める",
+        "bad": "〜すべきです",
+        "good": "〜のかもしれません、〜という考え方もあります",
+        "reason": "読者に判断を委ねる"
+      },
+      "personal-opinion": {
+        "description": "私見を明示する",
+        "bad": "〜は重要です",
+        "good": "私見でしかないのですが〜と思ってます",
+        "reason": "断定を避けて私見化"
+      },
+      "positive-ending": {
+        "description": "前向きな締めくくり",
+        "bad": "課題が残ります",
+        "good": "使ってから考えればヨシ！",
+        "reason": "やってみる精神"
+      }
+    },
+    "content": {
+      "cause-detail": {
+        "description": "原因・理由を具体的に書く",
+        "bad": "リポジトリが増えていて",
+        "good": "ちょっとしたことを試すためだけにリポジトリを作って検証していると",
+        "reason": "なぜそうなったかを説明"
+      },
+      "digression": {
+        "description": "本題から外れた雑談を挟む",
+        "bad": "本題に集中",
+        "good": "AIを掃除機みたいに使おう！という発想〜",
+        "reason": "人間味を出す"
+      },
+      "long-digression": {
+        "description": "長い考察・脱線を許容",
+        "bad": "簡潔に要点のみ",
+        "good": "AI協業についての持論展開（5-6行）",
+        "reason": "著者の視点を出す"
+      },
+      "psychological-barrier": {
+        "description": "心理的障壁・誘惑を語る",
+        "bad": "基準に従って判断する",
+        "good": "特に陳腐化してしまっているのに思い入れがあるケースが厄介で、なかなか消しにくいんですよね",
+        "reason": "共感を得る"
+      },
+      "temptation-mention": {
+        "description": "「ついつい〜したくなる」を語る",
+        "bad": "〜は避けるべきです",
+        "good": "ついついフロントエンドとバックエンドを切り分けて管理したくなりますが",
+        "reason": "人間らしい心理"
+      },
+      "tech-empathy": {
+        "description": "技術者あるあるで共感",
+        "bad": "問題が発生します",
+        "good": "変数の命名の時と同じ課題を感じてくること",
+        "reason": "読者の経験に紐づける"
+      },
+      "scope-clarification": {
+        "description": "前提・スコープを明示",
+        "bad": "いきなり本題",
+        "good": "個人開発レベルを想定してお話しますが",
+        "reason": "読者の状況に合わせる"
+      }
+    },
+    "meta": {
+      "meta-disclosure": {
+        "description": "AI生成部分や執筆プロセスを開示",
+        "bad": "（何も言わない）",
+        "good": "このチェックリストは AI 生成の内容（元記事への指摘により発覚）ですが",
+        "reason": "正直さ"
+      },
+      "ai-correction": {
+        "description": "AIの間違いを括弧書きで指摘",
+        "bad": "（何も言わない）",
+        "good": "（AI に書かせると「別のアカウントに移行します」と言ってきたのですが、GitHub は複数アカウントの作成を禁止しています）",
+        "reason": "メタ情報の開示"
+      },
+      "ai-hint": {
+        "description": "AIで活用できることを示唆",
+        "bad": "（何も言わない）",
+        "good": "コマンドで完結するということは、AI に指示すれば完結できます",
+        "reason": "AI時代の文脈"
+      },
+      "ai-experience": {
+        "description": "AI活用の実体験を語る",
+        "bad": "（何も言わない）",
+        "good": "AI を掃除機みたいに使おう！という発想にはなかなかならないですが使ってみると結構便利です",
+        "reason": "実体験ベース"
+      }
+    },
+    "honesty": {
+      "honest-result": {
+        "description": "理想と現実のギャップを正直に",
+        "bad": "成功しました",
+        "good": "結果だけを言うとオーガニゼーション自体の運用管理の必要もあったり〜実はあまり変わっていないです",
+        "reason": "正直さ"
+      },
+      "trial-and-error": {
+        "description": "試行錯誤・将来の変更可能性を開示",
+        "bad": "これが正解です",
+        "good": "これを嫌ってオーガニゼーションから個人アカウントに差し戻す可能性もありますが",
+        "reason": "確実性の留保"
+      },
+      "memory-uncertainty": {
+        "description": "記憶の曖昧さを出す",
+        "bad": "PATが必要です",
+        "good": "うろ覚えですが PAT が必要だったはず",
+        "reason": "人間味"
+      },
+      "concrete-url": {
+        "description": "実URLで具体性を出す",
+        "bad": "リポジトリが2個になりました",
+        "good": "https://github.com/shimajima-eiji/shimajima-eiji\nhttps://github.com/shimajima-eiji/shimajima-eiji.github.io",
+        "reason": "検証可能性"
+      }
+    },
+    "format": {
+      "risk-first": {
+        "description": "リスク・注意を先に提示",
+        "bad": "方法を説明してから注意",
+        "good": ":::message でリスクを冒頭に",
+        "reason": "読者への配慮"
+      },
+      "my-choice": {
+        "description": "自分の選択を明示",
+        "bad": "方法を説明",
+        "good": "今回私が採用した方法です",
+        "reason": "主観を明示"
+      },
+      "zenn-message": {
+        "description": "Zennの:::message記法を活用",
+        "bad": "強調記法や箇条書きで注意",
+        "good": ":::message で注意喚起",
+        "reason": "プラットフォーム適応"
+      },
+      "note-style": {
+        "description": "※で補足を入れる",
+        "bad": "本文に含める",
+        "good": "※掃除機としては便利ですが〜",
+        "reason": "副次情報の分離"
+      },
+      "no-matomemashita": {
+        "description": "「まとめました」を使わない",
+        "bad": "忘れがちなポイントをまとめました",
+        "good": "移行後に確認しておくべきポイントです",
+        "reason": "NG表現回避"
+      }
+    }
+  }
+}
