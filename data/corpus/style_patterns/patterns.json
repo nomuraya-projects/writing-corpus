@@ -1,37 +1,62 @@
 {
-  "version": "2026-01-05",
-  "description": "のむらやの書き味パターン定義。AI版との比較から抽出。",
+  "version": "2026-01-09",
+  "description": "のむらやの書き味パターン定義。AI版との比較から抽出。機械的検出用detectionフィールド追加。",
   "patterns": {
     "structure": {
       "no-number-heading": {
         "description": "見出しに数字を入れない",
         "bad": "### 1. 統合",
         "good": "### 統合",
-        "reason": "構造を過度に強調しない"
+        "reason": "構造を過度に強調しない",
+        "detection": {
+          "type": "regex",
+          "pattern": "^#{2,4}\\s*\\d+[\\.）\\)\\:]",
+          "severity": "warning"
+        }
       },
       "no-step-heading": {
         "description": "手順をStep見出しで分けない",
         "bad": "### Step 1: リモートリポジトリの移行",
         "good": "コードブロックに統合してコメントで説明",
-        "reason": "シンプルさを優先"
+        "reason": "シンプルさを優先",
+        "detection": {
+          "type": "regex",
+          "pattern": "^#{2,4}\\s*(Step|ステップ|STEP)\\s*\\d+",
+          "severity": "warning"
+        }
       },
       "no-bold-label": {
         "description": "強調記法のラベルを使わない",
         "bad": "**こういうときに選ぶ:**",
         "good": "文章で自然に流す",
-        "reason": "読み物としての流れを重視"
+        "reason": "読み物としての流れを重視",
+        "detection": {
+          "type": "regex",
+          "pattern": "\\*\\*[^*]+[：:]\\*\\*",
+          "severity": "info"
+        }
       },
       "code-block-unified": {
         "description": "コードブロックは統合して一箇所に",
         "bad": "各ステップごとにコードブロック分割",
         "good": "一つのコードブロックにまとめてコメントで説明",
-        "reason": "コピペしやすさ"
+        "reason": "コピペしやすさ",
+        "detection": {
+          "type": "context",
+          "description": "連続するコードブロックが多いか確認",
+          "severity": "info"
+        }
       },
       "bullet-as-consequence": {
         "description": "箇条書きは結果・帰結として使う",
         "bad": "**選ぶ基準:** - 基準1 - 基準2",
         "good": "〜したくなりますが、 - 問題1 - 問題2 になります。",
-        "reason": "箇条書きを文脈の中に埋め込む"
+        "reason": "箇条書きを文脈の中に埋め込む",
+        "detection": {
+          "type": "context",
+          "description": "導入部での箇条書き使用を確認",
+          "severity": "info"
+        }
       }
     },
     "tone": {
@@ -39,25 +64,45 @@
         "description": "自分の経験として語る",
         "bad": "選択肢は3つです",
         "good": "私の場合、以下の方法で解決しました",
-        "reason": "断定を避けて体験談化"
+        "reason": "断定を避けて体験談化",
+        "detection": {
+          "type": "context",
+          "description": "「私は」「私の場合」等の主語が含まれているか",
+          "severity": "info"
+        }
       },
       "soft-tone": {
         "description": "強制のニュアンスを弱める",
         "bad": "〜すべきです",
         "good": "〜のかもしれません、〜という考え方もあります",
-        "reason": "読者に判断を委ねる"
+        "reason": "読者に判断を委ねる",
+        "detection": {
+          "type": "keywords",
+          "keywords": ["すべきです", "べきです", "しなければなりません", "しなければいけません", "する必要があります"],
+          "severity": "warning"
+        }
       },
       "personal-opinion": {
         "description": "私見を明示する",
         "bad": "〜は重要です",
         "good": "私見でしかないのですが〜と思ってます",
-        "reason": "断定を避けて私見化"
+        "reason": "断定を避けて私見化",
+        "detection": {
+          "type": "context",
+          "description": "「私見」「個人的には」等の表現があるか",
+          "severity": "info"
+        }
       },
       "positive-ending": {
         "description": "前向きな締めくくり",
         "bad": "課題が残ります",
         "good": "使ってから考えればヨシ！",
-        "reason": "やってみる精神"
+        "reason": "やってみる精神",
+        "detection": {
+          "type": "context",
+          "description": "まとめ・結論がポジティブか",
+          "severity": "info"
+        }
       }
     },
     "content": {
@@ -65,43 +110,79 @@
         "description": "原因・理由を具体的に書く",
         "bad": "リポジトリが増えていて",
         "good": "ちょっとしたことを試すためだけにリポジトリを作って検証していると",
-        "reason": "なぜそうなったかを説明"
+        "reason": "なぜそうなったかを説明",
+        "detection": {
+          "type": "context",
+          "description": "問題の背景が具体的に説明されているか",
+          "severity": "info"
+        }
       },
       "digression": {
         "description": "本題から外れた雑談を挟む",
         "bad": "本題に集中",
         "good": "AIを掃除機みたいに使おう！という発想〜",
-        "reason": "人間味を出す"
+        "reason": "人間味を出す",
+        "detection": {
+          "type": "context",
+          "description": "脱線・雑談が適度にあるか",
+          "severity": "info"
+        }
       },
       "long-digression": {
         "description": "長い考察・脱線を許容",
         "bad": "簡潔に要点のみ",
         "good": "AI協業についての持論展開（5-6行）",
-        "reason": "著者の視点を出す"
+        "reason": "著者の視点を出す",
+        "detection": {
+          "type": "context",
+          "description": "著者の視点・考察が含まれているか",
+          "severity": "info"
+        }
       },
       "psychological-barrier": {
         "description": "心理的障壁・誘惑を語る",
         "bad": "基準に従って判断する",
         "good": "特に陳腐化してしまっているのに思い入れがあるケースが厄介で、なかなか消しにくいんですよね",
-        "reason": "共感を得る"
+        "reason": "共感を得る",
+        "detection": {
+          "type": "context",
+          "description": "心理的な抵抗・葛藤が語られているか",
+          "severity": "info"
+        }
       },
       "temptation-mention": {
         "description": "「ついつい〜したくなる」を語る",
         "bad": "〜は避けるべきです",
         "good": "ついついフロントエンドとバックエンドを切り分けて管理したくなりますが",
-        "reason": "人間らしい心理"
+        "reason": "人間らしい心理",
+        "detection": {
+          "type": "keywords",
+          "keywords": ["ついつい", "つい", "したくなる", "やりがち"],
+          "severity": "info",
+          "check_absence": true
+        }
       },
       "tech-empathy": {
         "description": "技術者あるあるで共感",
         "bad": "問題が発生します",
         "good": "変数の命名の時と同じ課題を感じてくること",
-        "reason": "読者の経験に紐づける"
+        "reason": "読者の経験に紐づける",
+        "detection": {
+          "type": "context",
+          "description": "読者の経験に紐づけた表現があるか",
+          "severity": "info"
+        }
       },
       "scope-clarification": {
         "description": "前提・スコープを明示",
         "bad": "いきなり本題",
         "good": "個人開発レベルを想定してお話しますが",
-        "reason": "読者の状況に合わせる"
+        "reason": "読者の状況に合わせる",
+        "detection": {
+          "type": "context",
+          "description": "対象読者・前提条件が明示されているか",
+          "severity": "info"
+        }
       }
     },
     "meta": {
@@ -109,25 +190,45 @@
         "description": "AI生成部分や執筆プロセスを開示",
         "bad": "（何も言わない）",
         "good": "このチェックリストは AI 生成の内容（元記事への指摘により発覚）ですが",
-        "reason": "正直さ"
+        "reason": "正直さ",
+        "detection": {
+          "type": "context",
+          "description": "AI活用や執筆プロセスの開示があるか",
+          "severity": "info"
+        }
       },
       "ai-correction": {
         "description": "AIの間違いを括弧書きで指摘",
         "bad": "（何も言わない）",
         "good": "（AI に書かせると「別のアカウントに移行します」と言ってきたのですが、GitHub は複数アカウントの作成を禁止しています）",
-        "reason": "メタ情報の開示"
+        "reason": "メタ情報の開示",
+        "detection": {
+          "type": "context",
+          "description": "AI出力の訂正が括弧書きで示されているか",
+          "severity": "info"
+        }
       },
       "ai-hint": {
         "description": "AIで活用できることを示唆",
         "bad": "（何も言わない）",
         "good": "コマンドで完結するということは、AI に指示すれば完結できます",
-        "reason": "AI時代の文脈"
+        "reason": "AI時代の文脈",
+        "detection": {
+          "type": "context",
+          "description": "AIでの活用可能性への言及があるか",
+          "severity": "info"
+        }
       },
       "ai-experience": {
         "description": "AI活用の実体験を語る",
         "bad": "（何も言わない）",
         "good": "AI を掃除機みたいに使おう！という発想にはなかなかならないですが使ってみると結構便利です",
-        "reason": "実体験ベース"
+        "reason": "実体験ベース",
+        "detection": {
+          "type": "context",
+          "description": "AI活用の実体験が語られているか",
+          "severity": "info"
+        }
       }
     },
     "honesty": {
@@ -135,25 +236,46 @@
         "description": "理想と現実のギャップを正直に",
         "bad": "成功しました",
         "good": "結果だけを言うとオーガニゼーション自体の運用管理の必要もあったり〜実はあまり変わっていないです",
-        "reason": "正直さ"
+        "reason": "正直さ",
+        "detection": {
+          "type": "context",
+          "description": "理想と現実のギャップが語られているか",
+          "severity": "info"
+        }
       },
       "trial-and-error": {
         "description": "試行錯誤・将来の変更可能性を開示",
         "bad": "これが正解です",
         "good": "これを嫌ってオーガニゼーションから個人アカウントに差し戻す可能性もありますが",
-        "reason": "確実性の留保"
+        "reason": "確実性の留保",
+        "detection": {
+          "type": "context",
+          "description": "試行錯誤や将来の変更可能性が開示されているか",
+          "severity": "info"
+        }
       },
       "memory-uncertainty": {
         "description": "記憶の曖昧さを出す",
         "bad": "PATが必要です",
         "good": "うろ覚えですが PAT が必要だったはず",
-        "reason": "人間味"
+        "reason": "人間味",
+        "detection": {
+          "type": "keywords",
+          "keywords": ["うろ覚え", "たしか", "記憶が", "曖昧", "かもしれない"],
+          "severity": "info",
+          "check_absence": true
+        }
       },
       "concrete-url": {
         "description": "実URLで具体性を出す",
         "bad": "リポジトリが2個になりました",
         "good": "https://github.com/shimajima-eiji/shimajima-eiji\nhttps://github.com/shimajima-eiji/shimajima-eiji.github.io",
-        "reason": "検証可能性"
+        "reason": "検証可能性",
+        "detection": {
+          "type": "context",
+          "description": "具体的なURLや例が含まれているか",
+          "severity": "info"
+        }
       }
     },
     "format": {
@@ -161,31 +283,60 @@
         "description": "リスク・注意を先に提示",
         "bad": "方法を説明してから注意",
         "good": ":::message でリスクを冒頭に",
-        "reason": "読者への配慮"
+        "reason": "読者への配慮",
+        "detection": {
+          "type": "context",
+          "description": "リスクや注意事項が先に提示されているか",
+          "severity": "info"
+        }
       },
       "my-choice": {
         "description": "自分の選択を明示",
         "bad": "方法を説明",
         "good": "今回私が採用した方法です",
-        "reason": "主観を明示"
+        "reason": "主観を明示",
+        "detection": {
+          "type": "keywords",
+          "keywords": ["私が採用", "私は選択", "私のおすすめ", "私が選んだ"],
+          "severity": "info",
+          "check_absence": true
+        }
       },
       "zenn-message": {
         "description": "Zennの:::message記法を活用",
         "bad": "強調記法や箇条書きで注意",
         "good": ":::message で注意喚起",
-        "reason": "プラットフォーム適応"
+        "reason": "プラットフォーム適応",
+        "detection": {
+          "type": "regex",
+          "pattern": ":::message",
+          "severity": "info",
+          "check_absence": true,
+          "platform": "zenn"
+        }
       },
       "note-style": {
         "description": "※で補足を入れる",
         "bad": "本文に含める",
         "good": "※掃除機としては便利ですが〜",
-        "reason": "副次情報の分離"
+        "reason": "副次情報の分離",
+        "detection": {
+          "type": "regex",
+          "pattern": "※[^\\n]+",
+          "severity": "info",
+          "check_absence": true
+        }
       },
       "no-matomemashita": {
         "description": "「まとめました」を使わない",
         "bad": "忘れがちなポイントをまとめました",
         "good": "移行後に確認しておくべきポイントです",
-        "reason": "NG表現回避"
+        "reason": "NG表現回避",
+        "detection": {
+          "type": "literal",
+          "pattern": "まとめました",
+          "severity": "error"
+        }
       }
     },
     "ng_words": {
@@ -193,49 +344,89 @@
         "description": "存在しない体験談を捏造しない",
         "bad": "先週、〜したら / 以前、〜したとき / 同僚に〜って話したら",
         "good": "一般論で語る、読者に問いかける（〜ってなりませんか）",
-        "reason": "ハルシネーション回避"
+        "reason": "ハルシネーション回避",
+        "detection": {
+          "type": "keywords",
+          "keywords": ["先週、", "以前、", "この前、", "同僚に", "上司に", "友人に"],
+          "severity": "warning"
+        }
       },
       "no-corporate-assumption": {
         "description": "会社員前提の表現を使わない",
         "bad": "同僚 / 上司 / 部署",
         "good": "チームメンバー / 別の人 / 周り",
-        "reason": "読者の状況を限定しない"
+        "reason": "読者の状況を限定しない",
+        "detection": {
+          "type": "keywords",
+          "keywords": ["同僚", "上司", "部署", "部下", "課長", "部長"],
+          "severity": "warning"
+        }
       },
       "no-textbook-declaration": {
         "description": "教科書的な宣言を避ける",
         "bad": "〜について説明します / 〜を見ていきましょう / 〜について考えてみます",
         "good": "いきなり本題に入る",
-        "reason": "読み物としての自然さ"
+        "reason": "読み物としての自然さ",
+        "detection": {
+          "type": "keywords",
+          "keywords": ["について説明します", "を見ていきましょう", "について考えてみ", "を紹介します", "を解説します"],
+          "severity": "error"
+        }
       },
       "no-polite-intro": {
         "description": "過度に丁寧な導入を避ける",
         "bad": "この記事では〜について述べます / 今回は〜をテーマにします",
         "good": "冒頭で自己紹介とメタ情報開示",
-        "reason": "形式的な導入を排除"
+        "reason": "形式的な導入を排除",
+        "detection": {
+          "type": "keywords",
+          "keywords": ["この記事では", "今回は〜をテーマに", "本稿では", "この投稿では"],
+          "severity": "warning"
+        }
       },
       "no-abstract-closing": {
         "description": "抽象的な締めくくりを避ける",
         "bad": "参考になれば幸いです / お役に立てれば嬉しいです",
         "good": "使ってから考えればヨシ！（前向き・具体的）",
-        "reason": "主体的な締めくくり"
+        "reason": "主体的な締めくくり",
+        "detection": {
+          "type": "keywords",
+          "keywords": ["参考になれば幸いです", "お役に立てれば", "参考にしていただければ", "幸いです"],
+          "severity": "error"
+        }
       },
       "no-redundant-heading": {
         "description": "見出しの冗長性を避ける",
         "bad": "〜について / 〜とは / 〜の理由",
         "good": "体言止めや問いかけ",
-        "reason": "簡潔さ"
+        "reason": "簡潔さ",
+        "detection": {
+          "type": "regex",
+          "pattern": "^#{2,4}\\s+.*について$",
+          "severity": "info"
+        }
       },
       "no-list-preamble": {
         "description": "過度な列挙の前置きを避ける",
         "bad": "以下のような点が挙げられます / 次の3つがあります",
         "good": "だいたいこういうことをやっていると思います",
-        "reason": "自然な流れ"
+        "reason": "自然な流れ",
+        "detection": {
+          "type": "keywords",
+          "keywords": ["以下のような点が挙げられます", "次の3つがあります", "以下の通りです", "次のようになります"],
+          "severity": "warning"
+        }
       },
       "no-excessive-desu-masu": {
         "description": "断定口調の連続を避ける",
         "bad": "〜です。〜します。〜です。の連続",
         "good": "〜な気がしてます / 〜かもしれない を混ぜる",
-        "reason": "柔らかいトーン"
+        "reason": "柔らかいトーン",
+        "detection": {
+          "type": "regex",
+          "pattern": "です。[^。]{5,30}です。[^。]{5,30}です。",
+          "severity": "warning"
+        }
       }
     }
   }
