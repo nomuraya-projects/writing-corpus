@@ -107,7 +107,7 @@ FC2記事は2つの場所で管理される：
 **目的**: note リポジトリの変更を metadata.json に反映
 
 **入力**:
-- `~/workspace-ai/nomuraya-articles/note/drafts/wordpress/fc2_extracted/`
+- `~/workspace-ai/nomuraya-blogs/note/drafts/wordpress/fc2_extracted/`
 - `data/corpus/metadata.json`
 
 **出力**: 更新された `metadata.json`
@@ -165,7 +165,7 @@ FC2記事は2つの場所で管理される：
 ```bash
 # 1. FC2記事をコピー
 cd ~/workspace-ai/writing-corpus
-cp -r ~/workspace-ai/nomuraya-articles/note/drafts/wordpress/fc2_extracted \
+cp -r ~/workspace-ai/nomuraya-blogs/note/drafts/wordpress/fc2_extracted \
       data/raw/
 
 # 2. Read-only化

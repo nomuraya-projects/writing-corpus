@@ -65,7 +65,7 @@ writing-corpus/
 ## 💎 FC2記事の2つの価値
 
 ### 価値A: note.comリライト素材
-- 場所: `nomuraya-articles/note/drafts/wordpress/fc2_extracted/`
+- 場所: `nomuraya-blogs/note/drafts/wordpress/fc2_extracted/`
 - 性質: リライト・削除OK（作業用）
 - **進捗**: Phase 1.2完了（スコアリング済み）
 
@@ -81,8 +81,8 @@ writing-corpus/
 
 ## 🔗 関連リポジトリ
 
-- [nomuraya-articles/note](https://github.com/nomuraya-articles/note) - note.com記事管理（リライト作業場所）
-- [nomuraya-articles/Zenn](https://github.com/nomuraya-articles/Zenn) - Zenn記事管理（article-creation統合先）
+- [nomuraya-blogs/note](https://github.com/nomuraya-blogs/note) - note.com記事管理（リライト作業場所）
+- [nomuraya-blogs/Zenn](https://github.com/nomuraya-blogs/Zenn) - Zenn記事管理（article-creation統合先）
 
 ## 📝 ライセンス
 

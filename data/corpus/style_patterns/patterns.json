@@ -57,6 +57,28 @@
           "description": "導入部での箇条書き使用を確認",
           "severity": "info"
         }
+      },
+      "no-hajimeni-matome": {
+        "description": "「はじめに」「まとめ」で始めない",
+        "bad": "## はじめに / ## まとめ",
+        "good": "導入は問題提起か体験から、結論は具体的なアクションへ",
+        "reason": "アフィリエイトブログ的パターンを避ける",
+        "detection": {
+          "type": "regex",
+          "pattern": "^#{2,4}\\s*(はじめに|まとめ|おわりに|終わりに|Introduction|Conclusion|Summary)\\s*$",
+          "severity": "error"
+        }
+      },
+      "no-bold-emphasis": {
+        "description": "強調記法（**text**）を使わない",
+        "bad": "**重要なポイント**です",
+        "good": "文章の流れで強調を表現する、または :::message 記法を使う",
+        "reason": "強調記法の多用はAI生成パターン・読みづらさの原因",
+        "detection": {
+          "type": "regex",
+          "pattern": "\\*\\*[^*]+\\*\\*",
+          "severity": "warning"
+        }
       }
     },
     "tone": {
